@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App/App.js';
-import reportWebVitals from '../reportWebVitals';
+import ScreenApp from './screens/App/App.js';
+import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <ScreenApp />
     </React.StrictMode>,
     document.getElementById('root')
 );

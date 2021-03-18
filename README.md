@@ -42,3 +42,6 @@ Như vậy thì chỉ cần nhìn path của file thì sẽ biết dược file 
 ### Tài liệu phân project
 
 [Cách phân chi folder cho project ReactJS](https://viblo.asia/p/cach-phan-chia-folder-va-dat-ten-components-cho-mot-app-react-aWj53891K6m)
+
+**Project này sử dụng Flow nên nó đã tắt đi TypeScript mặc định của vscode
+**Để mở lại thì vào extensions gõ @builtin và kiếm TypeScript and JavaScript Language Features và bấm enable

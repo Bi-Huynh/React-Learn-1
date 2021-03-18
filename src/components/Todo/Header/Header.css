@@ -1,0 +1,31 @@
+.card-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid #eee;
+}
+
+.card-header > img {
+    opacity: .3;
+}
+
+.card-header .input {
+    padding: 4px 4px 4px 0;
+    margin-left: 10px;
+    width: 100%;
+    border: none;
+    font-style: italic;
+    opacity: .3;
+    font-family: 'Helvetica Neue',Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    color: #4d4d4d;
+    outline: none;
+}
+
+.card-header .input:focus {
+    opacity: 1;
+}
+
+.card-header .active {
+    opacity: 1;
+}
