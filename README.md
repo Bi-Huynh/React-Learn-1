@@ -1,71 +1,44 @@
-# Getting Started with Create React App
+# Getting Started with Create React App and Learn ReactJS
 
 Project dùng để học reactjs và làm app demo Todo List
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Phân bố cục trong project
 
-In the project directory, you can run:
+### Thư mục components
 
-### `npm start`
+Trong folder components, chúng ta sẽ nhóm các files lại theo `module` hoặc feature/tính năng.
+Một components được cấu thành bởi nhiều hơn 1 file(chẳng hạn như phải import các components khác nhau,
+hay các file css cho component đó) khi đó ta sẽ đưa các file này vào chung folder có cùng tên.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Thư mục UI
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Ngoài các folder dành cho module hay tính năng trong ứng dụng, có thể thêm một folder UI (hoặc base/atomic) dùng cho các component dạng UI - là những phần tử nhỏ sử dụng cho UI trong ứng dụng. Đây là những component giống các thư viện open source, thường được dùng đi dùng lại nhiều lần trong ứng dụng, không nhất thiết phải là một module lớn và không thực hiện các business logic. Những ví dụ về components dạng này như Button, Checkbox, SelectBox, Modal, DatePicker, BreadCrumb,...
 
-### `npm test`
+### Thư mục screens
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Đây là thư mục dùng để chứa các các components tượng trưng cho 1 màn hình hiển thị trong ứng dụng.
+VD: Đối vơi tính năng CRUD User thì sẽ có ít nhất là 3 màn hình cơ bản bao gồm:
 
-### `npm run build`
+-   List (/users/)
+-   Create (/user)
+-   Edit (/users/:id)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Screen component nên là một `presentational component` và `không` nên thực hiện xử lý `business logic`
+Mỗi component ở trong sẽ đại diện cho route của ứng dụng, thay vì một module nào đó
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Đặt tên cho folder
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Để đặt tên components đặt theo hướng `path-based-component-naming`.
+Nghĩa là cấu thành bởi đường dẫn từ folder `src/components` đến file chúng ta tạo component đó. Chẳng hạn, bạn có một file với đường dẫn `src/components/User/List.jsx` thì tên component được sử dụng trong List.jsx sẽ được đặt là `UserList`.
 
-### `npm run eject`
+VD: `class UserList extends React.Component` với đường dẫn là `src/components/User/List.jsx`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Nếu Tên file trùng tên folder.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+VD: `src/components/User/Form/Form.jsx` thì thay vì sử dụng `UserFormForm`, chúng ta sẽ đặt là `UserForm`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Như vậy thì chỉ cần nhìn path của file thì sẽ biết dược file đó nó nằm ở đâu
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Tài liệu phân project
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Cách phân chi folder cho project ReactJS](https://viblo.asia/p/cach-phan-chia-folder-va-dat-ten-components-cho-mot-app-react-aWj53891K6m)
