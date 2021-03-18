@@ -1,5 +1,6 @@
 # Getting Started with Create React App
 
+Project dùng để học reactjs và làm app demo Todo List
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
