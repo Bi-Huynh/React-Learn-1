@@ -15,7 +15,6 @@ const TodoCard = () => {
     const onKeyEnter = (event) => {
         let contentTodo = event.target.value.trim();
         if (contentTodo !== '' && event.key === 'Enter') {
-            // let { todoItems } = this.state;
             setTodoItems([
                 { title: contentTodo, isComplete: false },
                 ...todoItems,
@@ -27,7 +26,6 @@ const TodoCard = () => {
     const onItemClicked = (item, index) => {
         return (event) => {
             let isComplete = item.isComplete;
-            // let { todoItems } = this.state;
             setTodoItems([
                 ...todoItems.slice(0, index),
                 { ...item, isComplete: !isComplete },
@@ -37,7 +35,6 @@ const TodoCard = () => {
     };
 
     const onAllComplete = () => {
-        // let { todoItems } = this.state;
         setTodoItems([...todoItems]);
     };
 
