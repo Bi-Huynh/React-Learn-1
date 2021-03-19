@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 // import axios from 'axios';
 
-// import TodoCard from '../../components/Todo/Card/Card.js';
 import './App.css';
 
 import Navs from '../Navs/Navs.js';
 import Product from '../Product/Product.js';
+import TodoCard from '../../components/Todo/Card/Card.js';
+
 const Index = () => <h2>Home</h2>;
 
 function App() {
@@ -39,6 +40,9 @@ function App() {
                 </Route>
                 <Route exact path="/product">
                     <Product products={products}></Product>
+                </Route>
+                <Route exact path="/todo">
+                    <TodoCard></TodoCard>
                 </Route>
             </div>
         </Router>

@@ -1,14 +1,8 @@
-// @flow
 import React, { useRef, useEffect } from 'react';
 import './Header.css';
 import checkAll from '../../../image/icon/check-all.svg';
 
-type Props = {
-    onAllComplete: Function,
-    onKeyEnter: Function,
-};
-
-function TodoHeader(props: Props) {
+function TodoHeader(props) {
     const { onAllComplete, onKeyEnter } = props;
     const inputEl = useRef(null); // khởi tạo ref
     // sử dụng ref để lấy element mong muốn

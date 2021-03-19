@@ -1,12 +1,6 @@
-// @flow
 import TodoItem from './Item/Item.js';
 
-type Props = {
-    todoItems: Array<Object>,
-    onItemClicked: Function,
-};
-
-function TodoList(props: Props) {
+function TodoList(props) {
     const { todoItems, onItemClicked } = props;
     return (
         <div className="todo-list">

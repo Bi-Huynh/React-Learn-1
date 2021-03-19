@@ -12,6 +12,9 @@ const Navs = (props) => {
                 <NavItem>
                     <NavLink href="/product">Product</NavLink>
                 </NavItem>
+                <NavItem>
+                    <NavLink href="/todo">Todo List</NavLink>
+                </NavItem>
             </Nav>
         </Navbar>
     );

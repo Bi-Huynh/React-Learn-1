@@ -1,4 +1,3 @@
-// @flow
 import React, { useState } from 'react';
 import TodoHeader from '../Header/Header.js';
 import TodoList from '../List.js';
@@ -6,7 +5,7 @@ import TodoList from '../List.js';
 import './Card.css';
 
 const TodoCard = () => {
-    const [todoItems: Array<Object>, setTodoItems] = useState([
+    const [todoItems, setTodoItems] = useState([
         { title: 'Mua bim bim', isComplete: false },
         { title: 'Mua gạo', isComplete: false },
         { title: 'Đi đổ xăng', isComplete: false },

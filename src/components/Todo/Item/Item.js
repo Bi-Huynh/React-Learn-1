@@ -1,4 +1,3 @@
-// @flow
 import * as React from 'react';
 import ClassNames from 'classnames';
 
@@ -6,15 +5,7 @@ import './Item.css';
 import iconCheckComplete from '../../../image/icon/check-complete.svg';
 import iconCheck from '../../../image/icon/check.svg';
 
-type Props = {
-    item: {
-        isComplete: boolean,
-        title: string,
-    },
-    onItemClicked: Function,
-};
-
-function TodoItem(props: Props) {
+function TodoItem(props) {
     const { item, onItemClicked } = props;
     let classList = ClassNames({
         'todo-item': true,
