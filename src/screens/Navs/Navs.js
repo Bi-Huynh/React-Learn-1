@@ -15,6 +15,9 @@ const Navs = (props) => {
                 <NavItem>
                     <NavLink href="/todo">Todo List</NavLink>
                 </NavItem>
+                <NavItem>
+                    <NavLink href="/colorbox">Colorbox</NavLink>
+                </NavItem>
             </Nav>
         </Navbar>
     );

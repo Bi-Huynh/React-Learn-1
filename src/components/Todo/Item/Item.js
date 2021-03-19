@@ -11,8 +11,11 @@ function TodoItem(props) {
         'todo-item': true,
         complete: item.isComplete,
     });
-
     let url = item.isComplete ? iconCheckComplete : iconCheck;
+
+    function handleItemClick(item) {
+        onItemClicked(item);
+    }
 
     return (
         <div className={classList}>
@@ -20,7 +23,7 @@ function TodoItem(props) {
                 className="img"
                 src={url}
                 alt="icon check"
-                onClick={onItemClicked}
+                onClick={() => handleItemClick(item)}
             />
             <p>{item.title}</p>
         </div>

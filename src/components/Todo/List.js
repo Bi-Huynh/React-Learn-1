@@ -10,7 +10,9 @@ function TodoList(props) {
                         <TodoItem
                             key={index}
                             item={item}
-                            onItemClicked={onItemClicked(item, index)}
+                            onItemClicked={onItemClicked}
+                            // vì thằng item nó cần thằng này nhưng list thì lại không cần
+                            // nên nó bị dư thừa, để giải quyết thì dùng context
                         ></TodoItem>
                     );
                 })}

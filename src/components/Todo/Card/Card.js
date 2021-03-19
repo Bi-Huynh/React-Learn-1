@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import TodoHeader from '../Header/Header.js';
 import TodoList from '../List.js';
-
 import './Card.css';
 
 const TodoCard = () => {
@@ -22,19 +21,36 @@ const TodoCard = () => {
         }
     };
 
-    const onItemClicked = (item, index) => {
-        return (event) => {
-            let isComplete = item.isComplete;
-            setTodoItems([
-                ...todoItems.slice(0, index),
-                { ...item, isComplete: !isComplete },
-                ...todoItems.slice(index + 1),
-            ]);
-        };
+    // const onItemClicked = (item, index) => {
+    //     return (event) => {
+    //         let isComplete = item.isComplete;
+    //         setTodoItems([
+    //             ...todoItems.slice(0, index),
+    //             { ...item, isComplete: !isComplete },
+    //             ...todoItems.slice(index + 1),
+    //         ]);
+    //     };
+    // };
+
+    const onItemClicked = (item) => {
+        let index = todoItems.indexOf(item);
+        if (index < 0) return;
+
+        let isComplete = item.isComplete;
+        let newTodoItems = [...todoItems];
+        newTodoItems[index].isComplete = !isComplete;
+        setTodoItems(newTodoItems);
     };
 
     const onAllComplete = () => {
-        setTodoItems([...todoItems]);
+        // setTodoItems([...todoItems]);
+        let isComplete = !isComplete || false;
+        let newTodoItems = [...todoItems];
+        newTodoItems = newTodoItems.map(
+            (item) => (item.isComplete = !isComplete)
+        );
+
+        console.log(newTodoItems);
     };
 
     return (
