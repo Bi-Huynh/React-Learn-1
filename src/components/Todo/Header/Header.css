@@ -3,10 +3,10 @@
     align-items: center;
     border-bottom: 3px solid #eee;
 }
-
+/* 
 .card-header > img {
     opacity: .3;
-}
+} */
 
 .card-header .input {
     padding: 4px 4px 4px 0;
