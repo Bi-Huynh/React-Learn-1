@@ -1,12 +1,22 @@
-import * as React from 'react';
 import ClassNames from 'classnames';
-
-import './Item.css';
+import PropTypes from 'prop-types';
+import * as React from 'react';
 import iconCheckComplete from '../../../image/icon/check-complete.svg';
 import iconCheck from '../../../image/icon/check.svg';
+import './Item.css';
+
+TodoItem.propTypes = {
+    item: PropTypes.object,
+    onTodoItemClicked: PropTypes.func,
+};
+
+TodoItem.propTypesDefault = {
+    item: {},
+    onTodoItemClicked: null,
+};
 
 function TodoItem(props) {
-    const { item, onItemClicked } = props;
+    const { item, onTodoItemClicked } = props;
     let classList = ClassNames({
         'todo-item': true,
         complete: item.isComplete,
@@ -14,7 +24,9 @@ function TodoItem(props) {
     let url = item.isComplete ? iconCheckComplete : iconCheck;
 
     function handleItemClick(item) {
-        onItemClicked(item);
+        if (!onTodoItemClicked) return;
+
+        onTodoItemClicked(item);
     }
 
     return (

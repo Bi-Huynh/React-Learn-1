@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import TodoHeader from '../Header/Header.js';
-import TodoList from '../List.js';
+import TodoHeader from '../Header/Header.jsx';
+import TodoList from '../List.jsx';
 import './Card.css';
 
-const isCheckedAll = (todoItems) => {
-    for (const item of todoItems) {
+const isCheckComplete = (newTodoItems) => {
+    for (const item of newTodoItems) {
         if (!item.isComplete) {
             return false;
         }
@@ -14,66 +14,53 @@ const isCheckedAll = (todoItems) => {
 
 const TodoCard = () => {
     const [todoItems, setTodoItems] = useState([
-        { id: 1, title: 'Mua bim bim', isComplete: false },
-        { id: 2, title: 'Mua gạo', isComplete: false },
-        { id: 3, title: 'Đi đổ xăng', isComplete: false },
+        { title: 'Mua bim bim', isComplete: false },
+        { title: 'Mua gạo', isComplete: false },
+        { title: 'Đi đổ xăng', isComplete: false },
     ]);
-
     const [isCompleteAllItem, setIsCompleteAllItem] = useState(false);
 
-    const onKeyEnter = (event) => {
-        let contentTodo = event.target.value.trim();
-        if (contentTodo !== '' && event.key === 'Enter') {
-            let newTodoItems = JSON.parse(JSON.stringify(todoItems));
-            newTodoItems.unshift({ title: contentTodo, isComplete: false });
-            setTodoItems(newTodoItems);
-            event.target.value = '';
-
-            isCheckedAll(newTodoItems)
-                ? setIsCompleteAllItem(true)
-                : setIsCompleteAllItem(false);
-            // if (isCheckedAll(newTodoItems)) {
-            //     setIsCompleteAllItem(true);
-            // }
-        }
+    const handleTodoSubmitForm = (fromValue) => {
+        let newTodo = JSON.parse(JSON.stringify(fromValue));
+        let newTodoItems = JSON.parse(JSON.stringify(todoItems));
+        newTodoItems.unshift(newTodo);
+        setTodoItems(newTodoItems);
     };
 
-    const onItemClicked = (item) => {
+    const handleTodoItemClicked = (item) => {
         let index = todoItems.indexOf(item);
         if (index < 0) return;
 
-        let isComplete = item.isComplete;
         let newTodoItems = JSON.parse(JSON.stringify(todoItems));
-        newTodoItems[index].isComplete = !isComplete;
+        newTodoItems[index].isComplete = !item.isComplete;
         setTodoItems(newTodoItems);
-
-        // kiểm tra xem có phải tất cả đã check hay không
-        // nếu không thì bỏ check all và ngược lại
-        isCheckedAll(newTodoItems)
-            ? setIsCompleteAllItem(true)
-            : setIsCompleteAllItem(false);
-        // if (isCheckedAll(newTodoItems)) {
-        //     setIsCompleteAllItem(true);
-        // }
+        // console.log('item check', newTodoItems);
+        // console.log(isCheckComplete(newTodoItems));
+        setIsCompleteAllItem(!isCheckComplete(newTodoItems));
+        // nó không render lại cái icon
     };
 
-    const onAllComplete = () => {
-        let newTodoItems = JSON.parse(JSON.stringify(todoItems));
-        newTodoItems.map((item) => (item.isComplete = !isCompleteAllItem));
-        setIsCompleteAllItem(!isCompleteAllItem);
+    const handleCheckedAllTodoComplete = () => {
+        let listTodoItems = JSON.parse(JSON.stringify(todoItems));
+        let newTodoItems = listTodoItems.map((todoItem) => {
+            todoItem.isComplete = !isCompleteAllItem;
+            return todoItem;
+        });
         setTodoItems(newTodoItems);
+        setIsCompleteAllItem(!isCompleteAllItem);
+        console.log('all check', newTodoItems);
     };
 
     return (
         <div className="todo-card">
             <TodoHeader
                 isCompleteAllItem={isCompleteAllItem}
-                onAllComplete={onAllComplete}
-                onKeyEnter={onKeyEnter}
+                onAllTodoComplete={handleCheckedAllTodoComplete}
+                onSubmitted={handleTodoSubmitForm}
             ></TodoHeader>
             <TodoList
                 todoItems={todoItems}
-                onItemClicked={onItemClicked}
+                onTodoItemClicked={handleTodoItemClicked}
             ></TodoList>
         </div>
     );
