@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-import ScreenApp from './screens/App/App.js';
+import ScreenApp from './screens/App/App.jsx';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

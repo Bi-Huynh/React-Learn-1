@@ -1,4 +1,4 @@
-import TodoItem from './Item/Item.js';
+import TodoItem from './Item/Item.jsx';
 
 function TodoList(props) {
     const { todoItems, onItemClicked } = props;

@@ -7,7 +7,7 @@ import './App.css';
 import Navs from '../Navs/Navs.js';
 import Product from '../Product/Product.js';
 import ColorBox from '../ColorBox/ColorBox.jsx';
-import TodoCard from '../../components/Todo/Card/Card.js';
+import TodoCard from '../../components/Todo/Card/Card.jsx';
 
 const Index = () => <h2>Home</h2>;
 

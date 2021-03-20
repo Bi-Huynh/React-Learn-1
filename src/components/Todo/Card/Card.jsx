@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import TodoHeader from '../Header/Header.js';
-import TodoList from '../List.js';
+import TodoHeader from '../Header/Header.jsx';
+import TodoList from '../List.jsx';
 import './Card.css';
 
 const isCheckedAll = (todoItems) => {
@@ -18,27 +18,21 @@ const TodoCard = () => {
         { id: 2, title: 'Mua gạo', isComplete: false },
         { id: 3, title: 'Đi đổ xăng', isComplete: false },
     ]);
-
     const [isCompleteAllItem, setIsCompleteAllItem] = useState(false);
 
-    const onKeyEnter = (event) => {
-        let contentTodo = event.target.value.trim();
-        if (contentTodo !== '' && event.key === 'Enter') {
-            let newTodoItems = JSON.parse(JSON.stringify(todoItems));
-            newTodoItems.unshift({ title: contentTodo, isComplete: false });
-            setTodoItems(newTodoItems);
-            event.target.value = '';
+    const handleSubmitFromTodo = (valueTodo = {}) => {
+        let value = JSON.parse(JSON.stringify(valueTodo));
 
-            isCheckedAll(newTodoItems)
-                ? setIsCompleteAllItem(true)
-                : setIsCompleteAllItem(false);
-            // if (isCheckedAll(newTodoItems)) {
-            //     setIsCompleteAllItem(true);
-            // }
-        }
+        console.log(value);
+        let newTodoItems = JSON.parse(JSON.stringify(todoItems));
+
+        newTodoItems.unshift(value);
+        setTodoItems(newTodoItems);
+
+        setIsCompleteAllItem(isCheckedAll(newTodoItems));
     };
 
-    const onItemClicked = (item) => {
+    const handleItemClicked = (item = {}) => {
         let index = todoItems.indexOf(item);
         if (index < 0) return;
 
@@ -49,15 +43,11 @@ const TodoCard = () => {
 
         // kiểm tra xem có phải tất cả đã check hay không
         // nếu không thì bỏ check all và ngược lại
-        isCheckedAll(newTodoItems)
-            ? setIsCompleteAllItem(true)
-            : setIsCompleteAllItem(false);
-        // if (isCheckedAll(newTodoItems)) {
-        //     setIsCompleteAllItem(true);
-        // }
+
+        setIsCompleteAllItem(isCheckedAll(newTodoItems));
     };
 
-    const onAllComplete = () => {
+    const handleCheckAllComplete = () => {
         let newTodoItems = JSON.parse(JSON.stringify(todoItems));
         newTodoItems.map((item) => (item.isComplete = !isCompleteAllItem));
         setIsCompleteAllItem(!isCompleteAllItem);
@@ -68,12 +58,12 @@ const TodoCard = () => {
         <div className="todo-card">
             <TodoHeader
                 isCompleteAllItem={isCompleteAllItem}
-                onAllComplete={onAllComplete}
-                onKeyEnter={onKeyEnter}
+                onCheckAllComplete={handleCheckAllComplete}
+                onSubmitFrom={handleSubmitFromTodo}
             ></TodoHeader>
             <TodoList
                 todoItems={todoItems}
-                onItemClicked={onItemClicked}
+                onItemClicked={handleItemClicked}
             ></TodoList>
         </div>
     );
