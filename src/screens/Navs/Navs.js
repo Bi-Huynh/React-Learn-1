@@ -21,6 +21,9 @@ const Navs = (props) => {
                 <NavItem>
                     <NavLink href="/postlist">PostList</NavLink>
                 </NavItem>
+                <NavItem>
+                    <NavLink href="/clock">Clock</NavLink>
+                </NavItem>
             </Nav>
         </Navbar>
     );

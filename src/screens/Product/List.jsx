@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import {
     Container,
@@ -13,7 +13,15 @@ import {
     Button,
 } from 'reactstrap';
 
-const Product = (props) => {
+List.propTypes = {
+    products: PropTypes.array,
+};
+
+List.defaultProps = {
+    products: [],
+};
+
+function List(props) {
     const { products } = props;
     return (
         <Container>
@@ -43,6 +51,6 @@ const Product = (props) => {
             </Row>
         </Container>
     );
-};
+}
 
-export default Product;
+export default List;
