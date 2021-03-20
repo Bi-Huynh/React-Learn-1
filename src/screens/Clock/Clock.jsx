@@ -5,8 +5,13 @@ Clock.propTypes = {
     timeString: PropTypes.string,
 };
 
+Clock.defaultProps = {
+    timeString: '',
+};
+
 function Clock(props) {
-    return <div></div>;
+    const { timeString } = props;
+    return <div style={{ fontsize: '42px' }}>{timeString}</div>;
 }
 
 export default Clock;

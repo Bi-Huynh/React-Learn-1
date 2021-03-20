@@ -37,13 +37,13 @@ function PostFilterForm(props) {
     return (
         <div>
             <h2>Page Post List</h2>
-            <from>
+            <form>
                 <input
                     type="text"
                     value={postValue}
                     onChange={handleSubmitFromFilter}
                 />
-            </from>
+            </form>
         </div>
     );
 }

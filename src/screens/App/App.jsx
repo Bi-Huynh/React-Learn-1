@@ -5,6 +5,8 @@ import Product from '../../components/Product/Product.jsx';
 import TodoCard from '../../components/Todo/Card/Card.jsx';
 import ColorBox from '../ColorBox/ColorBox.jsx';
 import Navs from '../Navs/Navs.js';
+import Clock from '../../components/Clock/Clock.jsx';
+
 // import axios from 'axios';
 import './App.css';
 
@@ -33,7 +35,7 @@ function App() {
                     <PostList></PostList>
                 </Route>
                 <Route exact path="/clock">
-                    <PostList></PostList>
+                    <Clock></Clock>
                 </Route>
             </div>
         </Router>
