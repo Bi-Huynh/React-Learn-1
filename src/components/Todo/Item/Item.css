@@ -1,0 +1,19 @@
+.todo-item {
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center
+}
+
+.todo-item:last-child {
+    border-bottom: none;
+}
+
+.todo-item > p {
+    margin: 0;
+    padding: 10px
+}
+
+.todo-item.complete > p {
+    text-decoration: line-through;
+    opacity: .3;
+}

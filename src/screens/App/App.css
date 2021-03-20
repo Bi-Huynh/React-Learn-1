@@ -1,0 +1,10 @@
+.App {
+  width: 500px;
+  margin: 50px auto;
+  border: 1px solid #eee;
+  font-family: 'Helvetica Neue',Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  color: #4d4d4d;
+  opacity: .7;
+}
