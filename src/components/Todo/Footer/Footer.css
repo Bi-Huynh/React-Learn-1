@@ -1,0 +1,27 @@
+.footer {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-top: 1px solid #eee;
+    font-size: 12px;
+}
+
+.footer__body {
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    display: inline-block;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 4px 16px;
+
+    margin: 10px 3px;
+    font-size: 12px;
+}
+
+.btn:hover,
+.btn:active {
+    border: 1px solid #000;
+}
