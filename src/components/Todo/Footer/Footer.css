@@ -13,15 +13,22 @@
 
 .btn {
     display: inline-block;
-    border: 1px solid #eee;
+    border: 1px solid #929292;
     border-radius: 5px;
     padding: 4px 16px;
 
     margin: 10px 3px;
     font-size: 12px;
+    opacity: .7;
+    transition: all 0.3s linear;
 }
 
-.btn:hover,
-.btn:active {
+.btn.active {
     border: 1px solid #000;
+    opacity: 1;
+}
+
+.btn:hover {
+    border: 1px solid #000;
+    opacity: 1;
 }

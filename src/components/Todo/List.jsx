@@ -4,14 +4,14 @@ import TodoItem from './Item/Item.jsx';
 
 function TodoList() {
     const {
-        todo: { todoItems },
+        todo: { getTodoItems },
     } = useContext(TodoContext);
     // trả về 1 object, vào object đó tìm thằng todo, và lấy cái todoItems trả về
 
     return (
         <div className="todo-list">
-            {todoItems.length > 0 &&
-                todoItems.map((item) => {
+            {getTodoItems().length > 0 &&
+                getTodoItems().map((item) => {
                     return (
                         <TodoItem
                             key={item.id}

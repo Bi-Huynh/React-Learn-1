@@ -37,9 +37,11 @@ function TodoHeader() {
         setTodoValue('');
     }
 
-    useEffect(() => inputEl.current.focus());
+    useEffect(() => inputEl.current.focus(), []);
     // sử dụng effect để cứ mỗi lần render lại view sau khi state todoItems được update
     // và khi DOM được render xong thì nó sẽ cho ô input hiển thị con trỏ nhập liệu bên trong
+    // chỉ render lần đầu tiên.
+
     return (
         <div className="card-header">
             <img
