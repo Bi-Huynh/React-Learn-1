@@ -1,18 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
-import checkAllComplete from '../../../image/icon/check-all-complete-2.svg';
-import checkAll from '../../../image/icon/check-all.svg';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { TodoContext } from '../../../stores/Todo.jsx';
+import iconCheckAllComplete from '../../../image/icon/check-all-complete-2.svg';
+import iconCheckAll from '../../../image/icon/check-all.svg';
 import './Header.css';
 
-function TodoHeader(props) {
-    const { isCompleteAllItem, onCheckAllComplete, onSubmitFrom } = props;
+function TodoHeader() {
     const [todoValue, setTodoValue] = useState('');
+    const {
+        isCompleteAllItem: { isCompleteAllItem },
+        checkAllComplete,
+        createTodoItem,
+    } = useContext(TodoContext);
 
     const inputEl = useRef(null); // khởi tạo ref
     // sử dụng ref để lấy element mong muốn
     // sử dụng effect để thực hiện 1 cái gì đó sau khi DOM đã được render xong
 
     function handleCheckAllComplete() {
-        onCheckAllComplete();
+        checkAllComplete();
     }
 
     function handleChangeInputTodo(event) {
@@ -23,10 +28,11 @@ function TodoHeader(props) {
         event.preventDefault();
 
         const valueTodo = {
+            id: new Date().getTime(),
             title: todoValue.trim(),
             isComplete: false,
         };
-        onSubmitFrom(valueTodo);
+        createTodoItem(valueTodo);
 
         setTodoValue('');
     }
@@ -38,8 +44,8 @@ function TodoHeader(props) {
         <div className="card-header">
             <img
                 className="img"
-                src={isCompleteAllItem ? checkAllComplete : checkAll}
-                alt="icon down"
+                src={isCompleteAllItem ? iconCheckAllComplete : iconCheckAll}
+                alt="icon check all"
                 onClick={handleCheckAllComplete}
             />
             <form onSubmit={handleSubmitFromTodo}>
