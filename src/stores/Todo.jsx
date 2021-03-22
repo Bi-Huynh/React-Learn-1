@@ -99,6 +99,7 @@ const TodoProvider = ({ children }) => {
         createTodoItem: handleCreateTodoItem,
         removeTodoComplete: handleRemoveTodoComplete,
         setFilter: setFilter,
+        filter: { filter, setFilter },
     };
 
     return (
