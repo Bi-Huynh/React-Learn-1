@@ -21,6 +21,7 @@ const TodoProvider = ({ children }) => {
         return todoItems.filter((item) => item.isComplete === value);
     };
 
+    // roi
     const getTodoItems = () => {
         let newTodoItems = [];
         switch (filter) {
@@ -91,6 +92,7 @@ const TodoProvider = ({ children }) => {
 
     const store = {
         todo: { getTodoItems, setTodoItems },
+        todo2: { todoItems, setTodoItems },
         isCompleteAllItem: { isCompleteAllItem, setIsCompleteAllItem },
         checkAllComplete: handleCheckAllComplete,
         checkItemComplete: handleCheckItemComplete,

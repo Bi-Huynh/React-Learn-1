@@ -1,16 +1,15 @@
 import React, { useContext, useRef } from 'react';
 import { TodoContext } from '../../../stores/Todo.jsx';
+import { useGetTodoItems } from '../../../hooks/TodoItems/useTodoItems';
 import './Footer.css';
 
 function Footer() {
-    const {
-        todo: { getTodoItems },
-        setFilter,
-        removeTodoComplete,
-    } = useContext(TodoContext);
+    const { setFilter, removeTodoComplete } = useContext(TodoContext);
     const btnClick = useRef();
 
-    let amount = getTodoItems().length;
+    let amount = useGetTodoItems().length;
+
+    console.log(amount);
     let item = amount > 1 ? 'items' : 'item';
 
     function handleClickFilter(event) {
@@ -43,14 +42,14 @@ function Footer() {
                 </div>
                 <div
                     className="btn"
-                    data-filter="Not"
+                    data-filter="Not Complete"
                     onClick={handleClickFilter}
                 >
                     Not Completed
                 </div>
                 <div
                     className="btn"
-                    data-filter="Comp"
+                    data-filter="Complete"
                     onClick={handleClickFilter}
                 >
                     Completed
