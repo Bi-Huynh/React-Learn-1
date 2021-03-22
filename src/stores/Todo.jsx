@@ -1,6 +1,7 @@
 import React, { createContext, useState } from 'react';
 
 export const TodoContext = createContext(null);
+TodoContext.displayName = 'TodoContext';
 
 const TodoProvider = ({ children }) => {
     const items = [
@@ -9,97 +10,101 @@ const TodoProvider = ({ children }) => {
         { id: '1616296983657', title: 'Đi đổ xăng', isComplete: false },
     ];
     const [todoItems, setTodoItems] = useState(items);
-    const [isCompleteAllItem, setIsCompleteAllItem] = useState(false);
-    const [filter, setFilter] = useState('All');
+    const [isItemsCheckAll, setIsItemsCheckAll] = useState(true);
+    const [filtering, setFiltering] = useState('All');
 
-    const getTodoItemsComplete = (newTodoItems) => {
-        // nếu lấy thằng todoItems thì do nó cập nhật bị chậm nên k lấy chính sác được
-        return newTodoItems.filter((todoItem) => todoItem.isComplete);
-    };
+    // const [itemIndex, setItemIndex] = useState(-1);
 
-    const todoFilterCompleted = (value) => {
-        return todoItems.filter((item) => item.isComplete === value);
-    };
+    // useEffect(() => {
+    // setFiltering('All');
+    // setTodoItems([
+    //     { id: '1616296975705', title: 'Mua bim bim', isComplete: false },
+    //     { id: '1616296983214', title: 'Mua gạo', isComplete: false },
+    //     { id: '1616296983657', title: 'Đi đổ xăng', isComplete: false },
+    // ]);
+    // }, []);
 
-    // roi
-    const getTodoItems = () => {
-        let newTodoItems = [];
-        switch (filter) {
-            case 'Not':
-                newTodoItems = todoFilterCompleted(false);
-                break;
-            case 'Comp':
-                newTodoItems = todoFilterCompleted(true);
-                break;
+    // const getTodoItemsComplete = (newTodoItems) => {
+    //     // nếu lấy thằng todoItems thì do nó cập nhật bị chậm nên k lấy chính sác được
+    //     return newTodoItems.filter((todoItem) => todoItem.isComplete);
+    // };
 
-            default:
-                newTodoItems = JSON.parse(JSON.stringify(todoItems));
-                break;
-        }
-        return newTodoItems;
-    };
+    // const todoFilterCompleted = (value) => {
+    //     return todoItems.filter((item) => item.isComplete === value);
+    // };
 
-    const handleCheckAllComplete = () => {
-        let isCheckAll = isCompleteAllItem;
+    // const getTodoItems = () => {
+    //     let newTodoItems = [];
+    //     switch (filter) {
+    //         case 'Not':
+    //             newTodoItems = todoFilterCompleted(false);
+    //             break;
+    //         case 'Comp':
+    //             newTodoItems = todoFilterCompleted(true);
+    //             break;
 
-        if (!todoItems && todoItems.length === 0) return;
+    //         default:
+    //             newTodoItems = JSON.parse(JSON.stringify(todoItems));
+    //             break;
+    //     }
+    //     return newTodoItems;
+    // };
 
-        let newTodoItems = todoItems.map((item) => {
-            return {
-                ...item,
-                isComplete: !isCheckAll,
-            };
-        });
+    // const handleCheckAllComplete = () => {
+    //     let isCheckAll = isCompleteAllItem;
 
-        setIsCompleteAllItem(!isCheckAll);
-        setTodoItems(newTodoItems);
-    };
+    //     if (!todoItems && todoItems.length === 0) return;
 
-    const handleCheckItemComplete = (item) => {
-        let index = todoItems.findIndex((todoItem) => todoItem.id === item.id);
-        if (index === -1) {
-            console.log('không tìm được vị trí của item đã bấm');
-            return;
-        }
-        let newTodoItems = JSON.parse(JSON.stringify(todoItems));
-        newTodoItems[index].isComplete = !item.isComplete;
-        setTodoItems(newTodoItems);
+    //     let newTodoItems = todoItems.map((item) => {
+    //         return {
+    //             ...item,
+    //             isComplete: !isCheckAll,
+    //         };
+    //     });
 
-        getTodoItemsComplete(newTodoItems).length === newTodoItems.length
-            ? setIsCompleteAllItem(true)
-            : setIsCompleteAllItem(false);
-    };
+    //     setIsCompleteAllItem(!isCheckAll);
+    //     setTodoItems(newTodoItems);
+    // };
 
-    const handleCreateTodoItem = (valueTodo = {}) => {
-        let value = { ...valueTodo };
+    // const handleCheckItemComplete = (item) => {
+    //     let index = todoItems.findIndex((todoItem) => todoItem.id === item.id);
+    //     if (index === -1) {
+    //         console.log('không tìm được vị trí của item đã bấm');
+    //         return;
+    //     }
+    //     let newTodoItems = JSON.parse(JSON.stringify(todoItems));
+    //     newTodoItems[index].isComplete = !item.isComplete;
+    //     setTodoItems(newTodoItems);
 
-        let newTodoItems = JSON.parse(JSON.stringify(todoItems));
+    //     getTodoItemsComplete(newTodoItems).length === newTodoItems.length
+    //         ? setIsCompleteAllItem(true)
+    //         : setIsCompleteAllItem(false);
+    // };
 
-        newTodoItems.unshift(value);
-        setTodoItems(newTodoItems);
+    // const handleCreateTodoItem = (valueTodo = {}) => {
+    //     let value = { ...valueTodo };
 
-        getTodoItemsComplete(newTodoItems).length === newTodoItems.length
-            ? setIsCompleteAllItem(true)
-            : setIsCompleteAllItem(false);
-    };
+    //     let newTodoItems = JSON.parse(JSON.stringify(todoItems));
 
-    const handleRemoveTodoComplete = () => {
-        let newTodoItems = todoFilterCompleted(false);
-        // lấy ra danh sách những thằng chưa được complete
-        // và gán lại cho danh sách chính thì bỏ được những thằng đã complete
-        setTodoItems(newTodoItems);
-    };
+    //     newTodoItems.unshift(value);
+    //     setTodoItems(newTodoItems);
+
+    //     getTodoItemsComplete(newTodoItems).length === newTodoItems.length
+    //         ? setIsCompleteAllItem(true)
+    //         : setIsCompleteAllItem(false);
+    // };
+
+    // const handleRemoveTodoComplete = () => {
+    //     let newTodoItems = todoFilterCompleted(false);
+    //     // lấy ra danh sách những thằng chưa được complete
+    //     // và gán lại cho danh sách chính thì bỏ được những thằng đã complete
+    //     setTodoItems(newTodoItems);
+    // };
 
     const store = {
-        todo: { getTodoItems, setTodoItems },
-        todo2: { todoItems, setTodoItems },
-        isCompleteAllItem: { isCompleteAllItem, setIsCompleteAllItem },
-        checkAllComplete: handleCheckAllComplete,
-        checkItemComplete: handleCheckItemComplete,
-        createTodoItem: handleCreateTodoItem,
-        removeTodoComplete: handleRemoveTodoComplete,
-        setFilter: setFilter,
-        filter: { filter, setFilter },
+        todo: { todoItems, setTodoItems },
+        isCheckAll: { isItemsCheckAll, setIsItemsCheckAll },
+        filter: { filtering, setFiltering },
     };
 
     return (

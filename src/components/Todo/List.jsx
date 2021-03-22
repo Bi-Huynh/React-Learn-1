@@ -1,14 +1,9 @@
-import { useContext } from 'react';
-import { TodoContext } from '../../stores/Todo.jsx';
 import { useGetTodoItems } from '../../hooks/TodoItems/useTodoItems';
 import TodoItem from './Item/Item.jsx';
 
 function TodoList() {
-    const {
-        filter: { filter },
-    } = useContext(TodoContext);
     // trả về 1 object, vào object đó tìm thằng todo, và lấy cái todoItems trả về
-    let todoItems = useGetTodoItems(filter);
+    let todoItems = useGetTodoItems();
     let amount = todoItems.length;
 
     return (

@@ -5,19 +5,18 @@ import iconCheckAll from '../../../image/icon/check-all.svg';
 import './Header.css';
 
 function TodoHeader() {
-    const [todoValue, setTodoValue] = useState('');
     const {
-        isCompleteAllItem: { isCompleteAllItem },
-        checkAllComplete,
-        createTodoItem,
+        todo: { todoItems, setTodoItems },
+        isCheckAll: { isItemsCheckAll, setIsItemsCheckAll },
     } = useContext(TodoContext);
 
+    const [todoValue, setTodoValue] = useState('');
     const inputEl = useRef(null); // khởi tạo ref
     // sử dụng ref để lấy element mong muốn
     // sử dụng effect để thực hiện 1 cái gì đó sau khi DOM đã được render xong
 
     function handleCheckAllComplete() {
-        checkAllComplete();
+        setIsItemsCheckAll(!isItemsCheckAll);
     }
 
     function handleChangeInputTodo(event) {
@@ -32,10 +31,23 @@ function TodoHeader() {
             title: todoValue.trim(),
             isComplete: false,
         };
-        createTodoItem(valueTodo);
+        // createTodoItem(valueTodo);
+        const newTodoItems = JSON.parse(JSON.stringify(todoItems));
+        newTodoItems.unshift(valueTodo);
+        setTodoItems(newTodoItems);
 
         setTodoValue('');
     }
+
+    useEffect(() => {
+        const newTodoItems = todoItems.map((item) => {
+            return {
+                ...item,
+                isComplete: !isItemsCheckAll,
+            };
+        });
+        setTodoItems(newTodoItems);
+    }, [isItemsCheckAll]);
 
     useEffect(() => inputEl.current.focus(), []);
     // sử dụng effect để cứ mỗi lần render lại view sau khi state todoItems được update
@@ -46,7 +58,7 @@ function TodoHeader() {
         <div className="card-header">
             <img
                 className="img"
-                src={isCompleteAllItem ? iconCheckAllComplete : iconCheckAll}
+                src={isItemsCheckAll ? iconCheckAll : iconCheckAllComplete}
                 alt="icon check all"
                 onClick={handleCheckAllComplete}
             />

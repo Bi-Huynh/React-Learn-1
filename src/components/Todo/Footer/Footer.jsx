@@ -1,20 +1,23 @@
 import React, { useContext, useRef } from 'react';
-import { TodoContext } from '../../../stores/Todo.jsx';
 import { useGetTodoItems } from '../../../hooks/TodoItems/useTodoItems';
+import { TodoContext } from '../../../stores/Todo.jsx';
 import './Footer.css';
 
 function Footer() {
-    const { setFilter, removeTodoComplete } = useContext(TodoContext);
+    const {
+        filter: { setFiltering },
+        todo: { todoItems, setTodoItems },
+    } = useContext(TodoContext);
     const btnClick = useRef();
 
     let amount = useGetTodoItems().length;
 
-    console.log(amount);
     let item = amount > 1 ? 'items' : 'item';
 
     function handleClickFilter(event) {
-        let filter = event.target.dataset.filter;
-        setFilter(filter);
+        let valueFilter = event.target.dataset.filter;
+        setFiltering(valueFilter);
+        // set lại filter để cho list nó đổi danh sách
         btnClick.current.classList.toggle('active');
         // xóa active thằng đầu tiên đi
         btnClick.current = event.target;
@@ -22,8 +25,13 @@ function Footer() {
         // thêm active vào thằng mới
     }
 
-    function handleClickCleanComplete() {
-        removeTodoComplete();
+    function HandleClickCleanComplete() {
+        // lấy ra danh sách những thằng chưa được complete
+        // và gán lại cho danh sách chính thì bỏ được những thằng đã complete
+        const todoItemsNotCompleted = todoItems.filter(
+            (item) => !item.isComplete
+        );
+        setTodoItems(todoItemsNotCompleted);
     }
 
     return (
@@ -55,7 +63,7 @@ function Footer() {
                     Completed
                 </div>
             </div>
-            <div className="btn" onClick={handleClickCleanComplete}>
+            <div className="btn" onClick={HandleClickCleanComplete}>
                 Clean completed
             </div>
         </footer>
