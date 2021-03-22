@@ -17,6 +17,7 @@ const formatDate = (date) => {
 
 function Clock() {
     const [timeString, setTimeString] = useState('');
+    const [count, setCount] = useState(0);
 
     useEffect(() => {
         const clockInterval = setInterval(() => {
@@ -30,9 +31,26 @@ function Clock() {
         };
     }, []);
 
+    const increment = () => {
+        setCount((preCount) => preCount + 1);
+        // mới :))) có thể nhận vào 1 function, tham số truyền vào là giá trị hiện tại của
+        // biến count và ta có thể sử lý biến đó r trả về kết quả mới.
+        // và tên tham số thì là gì cũng đc nhưng giá trị thì là giá trị hiện tại của biến count
+        // thay vì viết như trên ta có thể viết setCount(count + 1)
+    };
+
+    const decrement = () => {
+        setCount((preCount) => preCount - 1);
+    };
+
     return (
         <div>
             <ScreensClock timeString={timeString}></ScreensClock>
+            <div>
+                <button onClick={decrement}>-</button>
+                <span>{count}</span>
+                <button onClick={increment}>+</button>
+            </div>
         </div>
     );
 }
