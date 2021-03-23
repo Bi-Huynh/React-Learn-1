@@ -1,23 +1,23 @@
 import React, { useContext, useRef } from 'react';
-import { useGetTodoItems } from '../../../hooks/TodoItems/useTodoItems';
-import { TodoContext } from '../../../stores/Todo.jsx';
+import { ACTION_TODO, TodoContext } from '../../../stores/Todo.jsx';
 import './Footer.css';
 
 function Footer() {
     const {
-        filter: { setFiltering },
-        todo: { todoItems, setTodoItems },
+        todos,
+        dispatch,
+        filter: { setFilter },
     } = useContext(TodoContext);
     const btnClick = useRef();
 
-    let amount = useGetTodoItems().length;
+    let amount = todos.length;
 
     let item = amount > 1 ? 'items' : 'item';
 
     function handleClickFilter(event) {
         let valueFilter = event.target.dataset.filter;
-        setFiltering(valueFilter);
-        // set lại filter để cho list nó đổi danh sách
+        setFilter(valueFilter);
+
         btnClick.current.classList.toggle('active');
         // xóa active thằng đầu tiên đi
         btnClick.current = event.target;
@@ -26,12 +26,7 @@ function Footer() {
     }
 
     function HandleClickCleanComplete() {
-        // lấy ra danh sách những thằng chưa được complete
-        // và gán lại cho danh sách chính thì bỏ được những thằng đã complete
-        const todoItemsNotCompleted = todoItems.filter(
-            (item) => !item.isComplete
-        );
-        setTodoItems(todoItemsNotCompleted);
+        dispatch({ type: ACTION_TODO.REMOVE_TODOS });
     }
 
     return (
@@ -50,14 +45,14 @@ function Footer() {
                 </div>
                 <div
                     className="btn"
-                    data-filter="Not Complete"
+                    data-filter="Not Completed"
                     onClick={handleClickFilter}
                 >
                     Not Completed
                 </div>
                 <div
                     className="btn"
-                    data-filter="Complete"
+                    data-filter="Completed"
                     onClick={handleClickFilter}
                 >
                     Completed
