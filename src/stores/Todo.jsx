@@ -1,115 +1,88 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useReducer, useState } from 'react';
+// import '../webpack.config.js';
+// import '../.env';
+require('dotenv').config();
 
 export const TodoContext = createContext(null);
 TodoContext.displayName = 'TodoContext';
 
+// Dotenv.config();
+
+const ACTION_TODO = {
+    TODO_RESET: 'todoReset',
+    TODO_COMPLETED: 'todoNotCompleted',
+    TODO_COMPLETEDS: 'todoCompleteds',
+    ADD_TODO: 'addTodo',
+    REMOVE_TODO: 'removeTodo',
+    REMOVE_TODOS: 'removeTodos',
+};
+
+const todoReducer = (todos, action) => {
+    switch (action.type) {
+        case ACTION_TODO.TODO_RESET: {
+            return action.payload;
+        }
+        case ACTION_TODO.TODO_COMPLETED: {
+            return todos.map((todo) => {
+                if (todo.id === action.id) {
+                    return { ...todo, complete: !todo.complete };
+                }
+                return todo;
+            });
+        }
+        case ACTION_TODO.TODO_COMPLETEDS: {
+            return todos.map((todo) => ({ ...todo, complete: !todo.complete }));
+        }
+        case ACTION_TODO.ADD_TODO: {
+            return [action.newTodo, ...todos];
+        }
+        case ACTION_TODO.REMOVE_TODO: {
+            return todos.filter((todo) => todo.id !== action.id);
+        }
+        case ACTION_TODO.REMOVE_TODOS: {
+            return todos.filter((todo) => !todo.complete);
+        }
+        default:
+            return todos;
+    }
+};
+
 const TodoProvider = ({ children }) => {
-    const items = [
-        { id: '1616296975705', title: 'Mua bim bim', isComplete: false },
-        { id: '1616296983214', title: 'Mua gạo', isComplete: false },
-        { id: '1616296983657', title: 'Đi đổ xăng', isComplete: false },
-    ];
-    const [todoItems, setTodoItems] = useState(items);
-    const [isItemsCheckAll, setIsItemsCheckAll] = useState(true);
-    const [filtering, setFiltering] = useState('All');
+    const initialTodos = [];
 
-    // const [itemIndex, setItemIndex] = useState(-1);
+    const [todos, dispatch] = useReducer(todoReducer, initialTodos);
+    const [isCheckedAll, setIsCheckedAll] = useState(false);
+    const [filter, setFilter] = useState('');
 
-    // useEffect(() => {
-    // setFiltering('All');
-    // setTodoItems([
-    //     { id: '1616296975705', title: 'Mua bim bim', isComplete: false },
-    //     { id: '1616296983214', title: 'Mua gạo', isComplete: false },
-    //     { id: '1616296983657', title: 'Đi đổ xăng', isComplete: false },
-    // ]);
-    // }, []);
+    useEffect(() => {
+        if (todos.length <= 0 || !todos) return;
 
-    // const getTodoItemsComplete = (newTodoItems) => {
-    //     // nếu lấy thằng todoItems thì do nó cập nhật bị chậm nên k lấy chính sác được
-    //     return newTodoItems.filter((todoItem) => todoItem.isComplete);
-    // };
+        let amountCompleted = todos.filter((todo) => todo.complete).length;
+        if (todos.length === amountCompleted) {
+            setIsCheckedAll(true);
+        } else {
+            setIsCheckedAll(false);
+        }
+        localStorage.setItem(process.env.REACT_APP_TODO, JSON.stringify(todos));
+    }, [todos]);
 
-    // const todoFilterCompleted = (value) => {
-    //     return todoItems.filter((item) => item.isComplete === value);
-    // };
+    useEffect(() => {
+        const raw = JSON.parse(
+            localStorage.getItem(process.env.REACT_APP_TODO)
+        );
+        dispatch({ type: ACTION_TODO.TODO_RESET, payload: raw });
+    }, []);
 
-    // const getTodoItems = () => {
-    //     let newTodoItems = [];
-    //     switch (filter) {
-    //         case 'Not':
-    //             newTodoItems = todoFilterCompleted(false);
-    //             break;
-    //         case 'Comp':
-    //             newTodoItems = todoFilterCompleted(true);
-    //             break;
-
-    //         default:
-    //             newTodoItems = JSON.parse(JSON.stringify(todoItems));
-    //             break;
-    //     }
-    //     return newTodoItems;
-    // };
-
-    // const handleCheckAllComplete = () => {
-    //     let isCheckAll = isCompleteAllItem;
-
-    //     if (!todoItems && todoItems.length === 0) return;
-
-    //     let newTodoItems = todoItems.map((item) => {
-    //         return {
-    //             ...item,
-    //             isComplete: !isCheckAll,
-    //         };
-    //     });
-
-    //     setIsCompleteAllItem(!isCheckAll);
-    //     setTodoItems(newTodoItems);
-    // };
-
-    // const handleCheckItemComplete = (item) => {
-    //     let index = todoItems.findIndex((todoItem) => todoItem.id === item.id);
-    //     if (index === -1) {
-    //         console.log('không tìm được vị trí của item đã bấm');
-    //         return;
-    //     }
-    //     let newTodoItems = JSON.parse(JSON.stringify(todoItems));
-    //     newTodoItems[index].isComplete = !item.isComplete;
-    //     setTodoItems(newTodoItems);
-
-    //     getTodoItemsComplete(newTodoItems).length === newTodoItems.length
-    //         ? setIsCompleteAllItem(true)
-    //         : setIsCompleteAllItem(false);
-    // };
-
-    // const handleCreateTodoItem = (valueTodo = {}) => {
-    //     let value = { ...valueTodo };
-
-    //     let newTodoItems = JSON.parse(JSON.stringify(todoItems));
-
-    //     newTodoItems.unshift(value);
-    //     setTodoItems(newTodoItems);
-
-    //     getTodoItemsComplete(newTodoItems).length === newTodoItems.length
-    //         ? setIsCompleteAllItem(true)
-    //         : setIsCompleteAllItem(false);
-    // };
-
-    // const handleRemoveTodoComplete = () => {
-    //     let newTodoItems = todoFilterCompleted(false);
-    //     // lấy ra danh sách những thằng chưa được complete
-    //     // và gán lại cho danh sách chính thì bỏ được những thằng đã complete
-    //     setTodoItems(newTodoItems);
-    // };
-
-    const store = {
-        todo: { todoItems, setTodoItems },
-        isCheckAll: { isItemsCheckAll, setIsItemsCheckAll },
-        filter: { filtering, setFiltering },
+    const stores = {
+        todos: todos,
+        dispatch,
+        filter: { filter, setFilter },
+        checkAll: { isCheckedAll, setIsCheckedAll },
     };
 
     return (
-        <TodoContext.Provider value={store}>{children}</TodoContext.Provider>
+        <TodoContext.Provider value={stores}>{children}</TodoContext.Provider>
     );
 };
 
-export default TodoProvider;
+export { TodoProvider, ACTION_TODO };

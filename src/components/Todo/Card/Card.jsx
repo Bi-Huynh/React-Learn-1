@@ -1,7 +1,7 @@
-import TodoProvider from '../../../stores/Todo.jsx';
+import { TodoProvider } from '../../../stores/Todo.jsx';
+import TodoFooter from '../Footer/Footer.jsx';
 import TodoHeader from '../Header/Header.jsx';
 import TodoList from '../List.jsx';
-import TodoFooter from '../Footer/Footer.jsx';
 import './Card.css';
 
 const TodoCard = () => {
