@@ -1,11 +1,15 @@
 import React, { createContext, useEffect, useReducer, useState } from 'react';
+// import '../webpack.config.js';
+// import '../.env';
+require('dotenv').config();
 
 export const TodoContext = createContext(null);
 TodoContext.displayName = 'TodoContext';
 
+// Dotenv.config();
+
 const ACTION_TODO = {
-    GET_TODO_COMPLETED: 'getTodoCompleted',
-    GET_TODO_NOTCOMPLETED: 'getTodoNotCompleted',
+    TODO_RESET: 'todoReset',
     TODO_COMPLETED: 'todoNotCompleted',
     TODO_COMPLETEDS: 'todoCompleteds',
     ADD_TODO: 'addTodo',
@@ -15,11 +19,8 @@ const ACTION_TODO = {
 
 const todoReducer = (todos, action) => {
     switch (action.type) {
-        case ACTION_TODO.GET_TODO_COMPLETED: {
-            return todos.filter((todo) => todo.complete); // sai, làm sao để lọc danh sách
-        }
-        case ACTION_TODO.GET_TODO_NOTCOMPLETED: {
-            return todos.filter((todo) => !todo.complete); // sai
+        case ACTION_TODO.TODO_RESET: {
+            return action.payload;
         }
         case ACTION_TODO.TODO_COMPLETED: {
             return todos.map((todo) => {
@@ -47,11 +48,7 @@ const todoReducer = (todos, action) => {
 };
 
 const TodoProvider = ({ children }) => {
-    const initialTodos = [
-        { id: '1616296975705', title: 'Mua bim bim', complete: false },
-        { id: '1616296983214', title: 'Mua gạo', complete: false },
-        { id: '1616296983657', title: 'Đi đổ xăng', complete: false },
-    ];
+    const initialTodos = [];
 
     const [todos, dispatch] = useReducer(todoReducer, initialTodos);
     const [isCheckedAll, setIsCheckedAll] = useState(false);
@@ -66,7 +63,15 @@ const TodoProvider = ({ children }) => {
         } else {
             setIsCheckedAll(false);
         }
+        localStorage.setItem(process.env.REACT_APP_TODO, JSON.stringify(todos));
     }, [todos]);
+
+    useEffect(() => {
+        const raw = JSON.parse(
+            localStorage.getItem(process.env.REACT_APP_TODO)
+        );
+        dispatch({ type: ACTION_TODO.TODO_RESET, payload: raw });
+    }, []);
 
     const stores = {
         todos: todos,

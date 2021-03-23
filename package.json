@@ -9,6 +9,7 @@
         "axios": "^0.21.1",
         "bootstrap": "^4.6.0",
         "classnames": "^2.2.6",
+        "dotenv": "^8.2.0",
         "query-string": "^4.3.4",
         "react": "^17.0.1",
         "react-bootstrap": "^1.5.2",
@@ -45,6 +46,7 @@
         ]
     },
     "devDependencies": {
+        "dotenv-webpack": "^7.0.2",
         "flow-bin": "^0.146.0",
         "node-sass": "^5.0.0"
     }
